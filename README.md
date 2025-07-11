@@ -44,6 +44,15 @@ This table outlines the pin connections between the LCD module and the microcont
 | 8     | LCDLED(pin A) | PD.4                   | LED Backlight Control                            |
 
 ---
+
+## 🔧 LCD Initialization: Switching from 8-bit to 4-bit Mode
+
+When power is first applied, the **HD44780 LCD controller** starts in **8-bit mode** by default.  
+To use the **4-bit interface**, the host MCU must send a specific initialization sequence to "switch" the LCD into 4-bit mode.
+
+This process is outlined in the **HD44780U datasheet, page 46** , and implemented in the `LCD_Init()` function in the `myLCD` library.
+
+---
 ## ⚙️ Principle of Operation – 4-Bit LCD Interface
 
 ### 📦 Register Roles
@@ -81,6 +90,8 @@ This table outlines the pin connections between the LCD module and the microcont
 | 10  | Shift Display Left           | `0001 1000`            | `0x18`      | Moves entire display left            |
 | 11  | Shift Display Right          | `0001 1100`            | `0x1C`      | Moves entire display right           |
 | 12  | Function Set (4-bit, 2-line) | `0010 1000`            | `0x28`      | 4-bit interface, 2-line, 5x8 dots    |
+
+This process is outlined in the **HD44780U datasheet, page 46** 
 
 ---
 ## 📚 myLCD Library
