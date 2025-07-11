@@ -50,7 +50,7 @@ This table outlines the pin connections between the LCD module and the microcont
 When power is first applied, the **HD44780 LCD controller** starts in **8-bit mode** by default.  
 To use the **4-bit interface**, the host MCU must send a specific initialization sequence to "switch" the LCD into 4-bit mode.
 
-This process is outlined in the **HD44780U datasheet, page 46** , and implemented in the `LCD_Init()` function in the `myLCD` library.
+📌 This process is outlined in the **HD44780U datasheet, page 46** , and implemented in the `LCD_Init()` function in the `myLCD` library.
 
 ---
 ## ⚙️ Principle of Operation – 4-Bit LCD Interface
@@ -65,9 +65,9 @@ This process is outlined in the **HD44780U datasheet, page 46** , and implemente
 | AC       | Address Counter – points to current memory/register location           |
 
 ### 📎 Data Transmission: HD44780U LCD Controller Datasheet – Page 22
-- Only DB4–DB7 are used; DB0–DB3 are disabled.
+- Only DB4–DB7 are used; D0–D3 are disabled.
 - Each 8-bit instruction is sent in **two 4-bit operations**:
-  - First: **High nibble** (DB7–DB4)
+  - First: **High nibble** (D7–D4)
   - Then: **Low nibble**
 - Data is latched on the **falling edge of the Enable (E)** signal.
 - After sending both nibbles, the **busy flag** must be checked.
@@ -91,7 +91,7 @@ This process is outlined in the **HD44780U datasheet, page 46** , and implemente
 | 11  | Shift Display Right          | `0001 1100`            | `0x1C`      | Moves entire display right           |
 | 12  | Function Set (4-bit, 2-line) | `0010 1000`            | `0x28`      | 4-bit interface, 2-line, 5x8 dots    |
 
-This process is outlined in the **HD44780U datasheet, page 46** 
+📌 This process is outlined in the **HD44780U datasheet, page 46** 
 
 ---
 ## 📚 myLCD Library
@@ -109,21 +109,85 @@ This process is outlined in the **HD44780U datasheet, page 46**
 |---------------------------|----------------------------------------------------------------------------|
 | `LCD_Init()`              | Initializes the LCD in 4-bit mode. Sets function, display, entry mode.     |
 | `LCD_Clear()`             | Clears the LCD display and returns the cursor to home position.            |
-| `LCD_Command(cmd)`        | Sends a raw command byte to the LCD (internal use or advanced control).    |
-| `LCD_Write(data)`         | Sends one byte of data to the LCD.                                         |
-| `LCD_Send(Reg, data)`     | Sends `data` to `Reg of LCD` (either command register:`0` or data register:`1`).          |
-| `LCD_GotoXY(x, y)`        | Moves the cursor to the specified column `x` (0–15), row `y` (0 or 1).     |
-| `LCD_PutChar(ch)`         | Displays a single character `ch` at the current cursor position.           |
-| `LCD_PutString(s)`        | Displays a null-terminated string `s` at the current cursor position.      |
-| `LCD_PutNumber(&number)`  | Displays a signed integer number on the LCD at current position.           |
-| `LCD_Clock(&h, &m, &s)`   | Displays the current time in **HH:MM:SS** format (24-hour clock).          |
+| `LCD_Command(uint8_t cmd)`        | Sends a raw command byte to the LCD (internal use or advanced control).    |
+| `LCD_Write(uint8_t data)`         | Sends one byte of data to the LCD.                                         |
+| `LCD_Send(uint8_t Reg, uint8_t data)`     | Sends `data` to `Reg of LCD` (either command register:`0` or data register:`1`).          |
+| `LCD_GotoXY(uint8_t x, uint8_t y)`        | Moves the cursor to the specified column `x` (0–15), row `y` (0 or 1).     |
+| `LCD_PutChar(uint8_t ch)`         | Displays a single character `ch` at the current cursor position.           |
+| `LCD_PutString(char* s)`        | Displays a null-terminated string `s` at the current cursor position.      |
+| `LCD_PutNumber(int* number)`  | Displays a signed integer number on the LCD at current position.           |
+| `LCD_Clock(uint8_t *hours, uint8_t *minutes, uint8_t *second)`   | Displays the current time in **HH:MM:SS** format (24-hour clock).          |
 
 #### Example:
 ```c
 int num = 1234;
 LCD_PutNumber(&num); //Show 1234
 
-LCD_Command(0x01); //clear
+LCD_Command(0x01); //Send "Clear display" command (same as LCD_Clear())
 
+LCD_Send(0, 0x01); //Send "Clear display" command (same as LCD_Clear())
+LCD_Send(1, 'A');  //Display character 'A' at current cursor position
 
+LCD_Write('H'); // Writes character 'H'
+
+LCD_GotoXY(0, 0);                   // First row, first column
+
+LCD_PutString("Hello, World!");     // Display string Hello, World!
+
+LCD_Clock(&hour, &min, &sec);      // Show time in HH:MM:SS
 ```
+
+## 🧪 Application Examples
+
+All the following demo applications are implemented in the file:
+
+📁 demo_LCD_HD44780_STM32.c
+
+---
+
+### 🧭 Application 2 – Digital Clock (Auto Incrementing)
+
+📌 **Objective:** Create a simple digital clock that automatically counts time.
+
+- When powered on, the LCD displays the current time in the format:  
+  🕒 `"CLOCK: HH:MM:SS"`  
+  Example: `CLOCK: 14:03:05`
+- The time increases automatically **every 1 second**.
+- Time counting follows standard rules:
+  - After `SS = 59` → `MM` increases by 1
+  - After `MM = 59` → `HH` increases by 1
+- You can reset or adjust time values manually if needed.
+
+---
+
+### 🧭 Application 3 – Product Counter (Manual + Auto Count)
+
+📌 **Objective:** Build a production counter using buttons.
+
+- On startup, the LCD shows:  
+  📦 `"San pham: 0"`
+- Each time **button P1** is pressed → product count increases by 1  
+  (`San pham: 1`, `San pham: 2`, etc.)
+- Each time **button P2** is pressed → product count decreases by 1
+- Each time **button P3** is **tapped once** → auto-increment mode is activated:  
+  LCD automatically increases count every **1 second**
+- Each time **button P4** is pressed → auto-increment is **stopped**
+
+> 📝 Useful for learning **state control**, **button debouncing**, and **timed loops**.
+
+---
+
+### 🧭 Application 4 – Adjustable Real-Time Clock
+
+📌 **Objective:** Build a real-time clock with adjustable hours, minutes, and seconds.
+
+- On power-up, the LCD displays time in format:  
+  ⏰ `"HH:MM:SS"` (e.g. `14:03:05`)
+- **Button P1**: Toggle **auto time counting** mode:
+  - Time increases every second
+  - Seconds overflow (`SS = 59`) → minutes (`MM`) increase
+  - Minutes overflow (`MM = 59`) → hours (`HH`) increase
+- **Button P2**: Increase current **hour** by 1
+- **Button P3**: Increase current **minute** by 1
+- **Button P4**: Increase current **second** by 1
+
