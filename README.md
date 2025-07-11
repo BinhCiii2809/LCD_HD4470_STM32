@@ -1,6 +1,6 @@
-## 📘Overview
+## 📘 Overview
 
-### 🔍Review
+### 🔍 Review
 
 - How to initialize and operate an **HD44780-based LCD** in **4-bit interface mode**
 - How to connect the LCD to STM32
