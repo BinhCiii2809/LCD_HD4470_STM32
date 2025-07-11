@@ -32,16 +32,16 @@ This datasheet includes:
 
 This table outlines the pin connections between the LCD module and the microcontroller. Each pin is labeled with its function and corresponding microcontroller assignment.
 
-| No.   |  LCD Pin      |  Microcontroller Pin   |  Function Description                            |
-|-------|---------------|------------------------|--------------------------------------------------|
-| 1     | LCDRS         | PD.7                   | Register Select: 0 → Command, 1 → Data           |
-| 2     | LCDRW         | PD.6                   | Read/Write Control: 0 → Write, 1 → Read          |
-| 3     | LCDE          | PD.5                   | Enable: Triggers data read/write on LCD          |
-| 4     | LCDD4         | PD.0                   | Data Line D4                                     |
-| 5     | LCDD5         | PD.1                   | Data Line D5                                     |
-| 6     | LCDD6         | PD.2                   | Data Line D6                                     |
-| 7     | LCDD7         | PD.3                   | Data Line D7                                     |
-| 8     | LCDLED(pin A) | PD.4                   | LED Backlight Control                            |
+| No.   |  LCD Pin      |  Microcontroller Pin   |  Function Description                            | GPIO             |
+|-------|---------------|------------------------|--------------------------------------------------|------------------|
+| 1     | LCDRS         | PD.7                   | Register Select: 0 → Command, 1 → Data           | `OUTPUT`         |
+| 2     | LCDRW         | PD.6                   | Read/Write Control: 0 → Write, 1 → Read          | `OUTPUT`         |
+| 3     | LCDE          | PD.5                   | Enable: Triggers data read/write on LCD          | `OUTPUT`         |
+| 4     | LCDD4         | PD.0                   | Data Line D4                                     | `OUTPUT`         |
+| 5     | LCDD5         | PD.1                   | Data Line D5                                     | `OUTPUT`         |
+| 6     | LCDD6         | PD.2                   | Data Line D6                                     | `OUTPUT`         |
+| 7     | LCDD7         | PD.3                   | Data Line D7                                     | `OUTPUT`         |
+| 8     | LCDLED(pin A) | PD.4                   | LED Backlight Control                            | `OUTPUT`         |
 
 ---
 
@@ -147,12 +147,12 @@ All the following demo applications are implemented in the file:
 
 Four **active-low push buttons** (normally open) are used for user interaction. Each button should be connected with a **pull-up resistor** via STM32.
 
-| Button | Connected To STM32 Pin  | Circuit Note               |
-|--------|-------------------------|----------------------------|
-| `P1`   | e.g., `PB4`             | Pull-up resistor required  |
-| `P2`   | e.g., `PB5`             | Pull-up resistor required  |
-| `P3`   | e.g., `PB8`             | Pull-up resistor required  |
-| `P4`   | e.g., `PB9`             | Pull-up resistor required  |
+| Button | Connected To STM32 Pin  | Circuit Note               | GPIO             |
+|--------|-------------------------|----------------------------|------------------|
+| `P1`   |       `PB4`             | Pull-up resistor required  | `INPUT`          |
+| `P2`   |       `PB5`             | Pull-up resistor required  | `INPUT`          |
+| `P3`   |       `PB8`             | Pull-up resistor required  | `INPUT`          |
+| `P4`   |       `PB9`             | Pull-up resistor required  | `INPUT`          |
 
 ---
 
@@ -202,3 +202,17 @@ Four **active-low push buttons** (normally open) are used for user interaction. 
 - **Button P3**: Increase current **minute** by 1
 - **Button P4**: Increase current **second** by 1
 
+---
+## 📂 How to `Create Project` in STM32CubeMX.
+
+### 🧩 Step 1: Create a project using **STM32F103RCT**.
+
+<img width="324" height="370" alt="Image" src="https://github.com/user-attachments/assets/76bd85b9-2821-4eb9-b4e0-5cb0401417e0" />
+
+<img width="869" height="335" alt="Image" src="https://github.com/user-attachments/assets/26d74456-a805-4144-bfbc-11c77b1c77ba" />
+
+### 🧩 Step 2: Set up Buttons pull-up
+
+<img width="1327" height="547" alt="Image" src="https://github.com/user-attachments/assets/561263d6-38e4-497b-9b9e-24f392084240" />
+
+### 🧩 Step 3: Set up OUTPUT
