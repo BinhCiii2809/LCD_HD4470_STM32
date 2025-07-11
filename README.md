@@ -143,6 +143,17 @@ All the following demo applications are implemented in the file:
 
 📁 demo_LCD_HD44780_STM32.c
 
+### 🔘 Button Interface (P1–P4)
+
+Four **active-low push buttons** (normally open) are used for user interaction. Each button should be connected with a **pull-up resistor** via STM32.
+
+| Button | Connected To STM32 Pin  | Circuit Note               |
+|--------|-------------------------|----------------------------|
+| `P1`   | e.g., `PB4`             | Pull-up resistor required  |
+| `P2`   | e.g., `PB5`             | Pull-up resistor required  |
+| `P3`   | e.g., `PB8`             | Pull-up resistor required  |
+| `P4`   | e.g., `PB9`             | Pull-up resistor required  |
+
 ---
 
 ### 🧭 Application 2 – Digital Clock (Auto Incrementing)
