@@ -143,8 +143,8 @@ All the following demo applications are implemented in the file:
 
 📁 demo_LCD_HD44780_STM32.c
 
-- Make sure you’ve already added:
-  - `myLED.c` and `myLED.h`, `myGPIO.c` and `myGPIO.h` to your project
+📌 Make sure you’ve already added:
+  - `myLCD.c` and `myLCD.h`, `myGPIO.c` and `myGPIO.h` to your project
   - Required GPIO configurations via STM32CubeMX
 
 ### 🔘 Button Interface (P1–P4)
