@@ -3,7 +3,6 @@
 ### 🔍 Review
 
 - How to initialize and operate an **HD44780-based LCD** in **4-bit interface mode**
-- How to connect the LCD to STM32
 - How to send commands and data using custom functions
 - How to display:
   - Strings and characters
@@ -11,6 +10,7 @@
   - Time in HH:MM:SS format with button-based control
 - How to create a **modular LCD library** for reuse across projects
 - How to create a project in **STM32CubeMX**
+- How to connect the LCD to STM32
 - How to add and include `.c/.h` LCD driver files in **Keil µVision**
 
 ## 📚 Reference Documentation
