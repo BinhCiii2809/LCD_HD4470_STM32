@@ -211,8 +211,20 @@ Four **active-low push buttons** (normally open) are used for user interaction. 
 
 <img width="869" height="335" alt="Image" src="https://github.com/user-attachments/assets/26d74456-a805-4144-bfbc-11c77b1c77ba" />
 
-### 🧩 Step 2: Set up Buttons pull-up
+### 🧩 Step 2: Set up INPUT pull-up
 
 <img width="1327" height="547" alt="Image" src="https://github.com/user-attachments/assets/561263d6-38e4-497b-9b9e-24f392084240" />
 
 ### 🧩 Step 3: Set up OUTPUT
+
+<img width="1169" height="524" alt="Image" src="https://github.com/user-attachments/assets/ab6b09af-f995-4437-9680-76c1395ac6ff" />
+
+### 🧩 Step 4: Enable Serial Wire Debug (SWD)
+
+<img width="1114" height="492" alt="Image" src="https://github.com/user-attachments/assets/0bdff256-ecb8-44e6-bc37-f0f51115f2a5" />
+
+### 🧩 Step 5: Generate Code in **Keil uVision**
+
+<img width="1333" height="446" alt="Image" src="https://github.com/user-attachments/assets/2b0bda3c-dbff-41e2-86db-6e9893051405" />
+
+
