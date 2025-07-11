@@ -227,4 +227,39 @@ Four **active-low push buttons** (normally open) are used for user interaction. 
 
 <img width="1333" height="446" alt="Image" src="https://github.com/user-attachments/assets/2b0bda3c-dbff-41e2-86db-6e9893051405" />
 
+---
 
+## 📂 How to Add `myLCD` and `myGPIO` library in Keil C Project
+
+To use the `myLCD.c` and `myLCD.h` library in your STM32 project (Keil µVision), follow these steps:
+
+---
+### ➕ 2. Add `myLCD.c` to Project Source Group
+
+1. Open **Keil µVision** project.
+2. In **Project Explorer**, right-click on **Application/User/Core**.
+3. Click **Add Existing Files to Group...**
+4. Navigate to `myLCD.c` and select it → Click **Add** → then **Close**
+
+✅ Now Keil will compile `myLCD.c` with your project.
+
+<img width="576" height="424" alt="Image" src="https://github.com/user-attachments/assets/f2182b36-b510-45ad-8682-4c38580aec35" />
+---
+
+### 📌 How to Add a `myLCD.h` Header File to Your Keil Project
+
+Header files (`.h`) contain **function prototypes**, **macros**, and **global variables** used across multiple `.c` files.
+
+To use `myLCD.h` or any custom header:
+
+---
+1. Open **Keil µVision** project.
+2. In **Project Explorer**, follow the steps in the picture.
+
+<img width="1322" height="537" alt="Image" src="https://github.com/user-attachments/assets/e42710b0-e5dc-46b1-be87-b49be8034ed5" />
+
+### 🧩 Step 5: Place the Header File
+
+Make sure `myLED.h` is placed in an accessible folder within your project directory.
+
+<img width="833" height="458" alt="Image" src="https://github.com/user-attachments/assets/2d1718f7-e776-4bdc-8bfa-1345d987d18a" />
